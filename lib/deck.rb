@@ -1,13 +1,13 @@
 class Deck
 
-  attr_reader :card, :stack
+  attr_reader :card, :cards
 
   def initialize
-    @cards = card
-    @stack = []
+    @card = card
+    @cards = []
   end
 
   def add_card(card)
-    @stack << card
+    @cards << card
   end
 end
