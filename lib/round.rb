@@ -20,8 +20,6 @@ class Round
   end
 
   def number_correct
-    # for each turn in turns array return a count of how many
-    # are correct
     total_correct = 0
     @turns.each do |turn|
       if turn.card.answer == turn.guess
