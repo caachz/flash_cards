@@ -227,7 +227,6 @@ class RoundTest < Minitest::Test
     new_turn_alaska = round.take_turn("Juneau")
     new_turn_viking = round.take_turn("Venus")
 
-    require 'pry'; binding.pry
     assert_equal 1, round.number_correct_by_category(:Geography)
   end
 
