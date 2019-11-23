@@ -1,11 +1,12 @@
 class Round
-  attr_reader :deck, :turns, :total_correct_by_category, :number_correct, :number_of_turns
+  attr_reader :deck, :turns, :total_correct_by_category, :number_correct, :number_of_turns, :correct_cards
 
   def initialize(deck)
     @deck = deck
     @turns = []
     @number_of_turns = 0
-    @total_correct_by_category = {}
+    @correct_cards = []
+    @total_correct_by_category = 0
     @number_correct = 0
   end
 
@@ -17,20 +18,43 @@ class Round
     current_turn = Turn.new(guess, current_card)
     @turns << current_turn
     @number_of_turns += 1
-    @turns.each do |turn|
-      if turn.card.answer == turn.guess
-        @total_correct_by_category = @total_correct_by_category.merge(Hash[turn.card.category, 1])
-      end
+    if current_turn.correct?
+      @correct_cards << current_turn
     end
     current_turn
   end
 
   def number_correct
-    @number_correct = @total_correct_by_category.length
+    @number_correct = @correct_cards.length
   end
 
   def number_correct_by_category(category)
-    #not going to work for long
-    @total_correct_by_category.length
+    total_correct_category = 0
+    correct_cards.each do |correct_answer|
+      if correct_answer.card.category == category
+        total_correct_category += 1
+      end
+    end
+    total_correct_category
+  end
+
+  def percent_correct
+    number_correct.to_f/number_of_turns.to_f*100
+  end
+
+  def percent_correct_by_category(category)
+    total_correct_category = 0
+    total_category_answered = 0
+    correct_cards.each do |correct_answer|
+      if correct_answer.card.category == category
+        total_correct_category += 1
+      end
+    end
+    turns.each do |turn|
+      if turn.card.category == category
+        total_category_answered += 1
+      end
+    end
+    total_correct_category.to_f/total_category_answered.to_f*100
   end
 end
