@@ -30,6 +30,7 @@ class Round
   end
 
   def number_correct_by_category(category)
-
+    #not going to work for long
+    @total_correct_by_category.length
   end
 end
