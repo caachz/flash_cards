@@ -1,10 +1,11 @@
 class Round
-  attr_reader :deck, :turns
+  attr_reader :deck, :turns, :total_correct_by_category
 
   def initialize(deck)
     @deck = deck
     @turns = []
     @number_of_turns = 0
+    @total_correct_by_category = {}
   end
 
   def current_card
@@ -24,8 +25,13 @@ class Round
     @turns.each do |turn|
       if turn.card.answer == turn.guess
         total_correct += 1
+        @total_correct_by_category = @total_correct_by_category.merge(Hash[turn.card.category, 1])
       end
     end
     total_correct
+  end
+
+  def number_correct_by_category(category)
+
   end
 end
