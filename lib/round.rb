@@ -1,5 +1,6 @@
 class Round
-  attr_reader :deck, :turns, :total_correct_by_category, :number_correct, :number_of_turns, :correct_cards
+  attr_reader :deck, :turns, :total_correct_by_category, :number_correct,
+  :number_of_turns, :correct_cards, :current_turn
 
   def initialize(deck)
     @deck = deck
@@ -8,6 +9,7 @@ class Round
     @correct_cards = []
     @total_correct_by_category = 0
     @number_correct = 0
+    @current_turn = current_turn
   end
 
   def current_card
@@ -15,13 +17,13 @@ class Round
   end
 
   def take_turn(guess)
-    current_turn = Turn.new(guess, current_card)
-    @turns << current_turn
+    @current_turn = Turn.new(guess, current_card)
+    @turns << @current_turn
     @number_of_turns += 1
-    if current_turn.correct?
-      @correct_cards << current_turn
+    if @current_turn.correct?
+      @correct_cards << @current_turn
     end
-    current_turn
+    @current_turn
   end
 
   def number_correct
@@ -57,4 +59,15 @@ class Round
     end
     total_correct_category.to_f/total_category_answered.to_f*100
   end
+
+  def start
+  puts "Welcome! You're playing with #{@deck.cards.length} cards.\n
+  -------------------------------------------------\n
+  This is card number #{@number_of_turns+1}\n
+  Question: #{deck.cards[number_of_turns].question}\n
+  Answer => #{answer = gets.chomp}"
+  puts answer
+
+  end
+
 end
