@@ -2,7 +2,7 @@ class Round
   attr_reader :deck, :turns, :total_correct_by_category, :number_correct,
   :number_of_turns, :correct_cards, :current_turn
 
-  def initialize(deck)
+  def initialize(deck = CardGenerator.new.cards)
     @deck = deck
     @turns = []
     @number_of_turns = 0
@@ -13,7 +13,7 @@ class Round
   end
 
   def current_card
-    deck.cards[@number_of_turns]
+    @deck.cards[@number_of_turns]
   end
 
   def take_turn(guess)
