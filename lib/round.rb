@@ -45,29 +45,38 @@ class Round
   end
 
   def percent_correct_by_category(category)
-    total_correct_category = 0
-    total_category_answered = 0
+    total_correct_category = []
+    total_category_answered = []
     correct_cards.each do |correct_answer|
       if correct_answer.card.category == category
-        total_correct_category += 1
+        total_correct_category << correct_answer
       end
     end
     turns.each do |turn|
       if turn.card.category == category
-        total_category_answered += 1
+        total_category_answered << turn
       end
     end
-    total_correct_category.to_f/total_category_answered.to_f*100
+    total_correct_category.length.to_f/total_category_answered.length.to_f*100
   end
 
   def start
   puts "Welcome! You're playing with #{@deck.cards.length} cards.\n
-  -------------------------------------------------\n
-  This is card number #{@number_of_turns+1}\n
-  Question: #{deck.cards[number_of_turns].question}\n
-  Answer => #{answer = gets.chomp}"
-  puts answer
-
+  -------------------------------------------------"
+  @deck.cards.length.times do
+    puts "This is card number #{@number_of_turns+1} of #{@deck.cards.length}\n
+    Question: #{deck.cards[number_of_turns].question}\n"
+    player_answer = gets.chomp
+    take_turn(player_answer)
+    puts @current_turn.feedback
   end
-
+  puts "****** Game over! ******\n
+  You had #{@correct_cards.length} correct guesses out of #{@deck.cards.length}
+  for a total score of #{percent_correct.round(2)}%"
+  turn_incrementer = 0
+  turns.each do |turn|
+    puts "#{turns[turn_incrementer].card.category}: percent_correct_by_category(turns[turn_incrementer].card.category)
+    turn_incrementer += 1
+  end
+  end
 end
