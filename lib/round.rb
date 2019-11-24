@@ -61,22 +61,23 @@ class Round
   end
 
   def start
-  puts "Welcome! You're playing with #{@deck.cards.length} cards.\n
-  -------------------------------------------------"
+  puts "Welcome! You're playing with #{@deck.cards.length} cards.\n-------------------------------------------------"
   @deck.cards.length.times do
-    puts "This is card number #{@number_of_turns+1} of #{@deck.cards.length}\n
-    Question: #{deck.cards[number_of_turns].question}\n"
+    puts "This is card number #{@number_of_turns+1} of #{@deck.cards.length}\nQuestion: #{deck.cards[number_of_turns].question}\n"
     player_answer = gets.chomp
     take_turn(player_answer)
     puts @current_turn.feedback
   end
-  puts "****** Game over! ******\n
-  You had #{@correct_cards.length} correct guesses out of #{@deck.cards.length}
-  for a total score of #{percent_correct.round(2)}%"
+  puts "****** Game over! ******\nYou had #{@correct_cards.length} correct guesses out of #{@deck.cards.length} for a total score of #{percent_correct.round(2)}%"
   turn_incrementer = 0
+  category_repeater = []
   turns.each do |turn|
-    puts "#{turns[turn_incrementer].card.category}: percent_correct_by_category(turns[turn_incrementer].card.category)
-    turn_incrementer += 1
+    if category_repeater.include? turns[turn_incrementer].card.category
+    else
+      puts "#{turns[turn_incrementer].card.category} - #{percent_correct_by_category(turns[turn_incrementer].card.category)}% correct"
+      category_repeater << turns[turn_incrementer].card.category
+      turn_incrementer += 1
+    end
   end
   end
 end
