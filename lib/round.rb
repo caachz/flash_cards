@@ -72,12 +72,14 @@ class Round
   turn_incrementer = 0
   category_repeater = []
   turns.each do |turn|
-    if category_repeater.include? turns[turn_incrementer].card.category
-    else
-      puts "#{turns[turn_incrementer].card.category} - #{percent_correct_by_category(turns[turn_incrementer].card.category)}% correct"
-      category_repeater << turns[turn_incrementer].card.category
-      turn_incrementer += 1
-    end
+    # if category_repeater.include? turns[turn_incrementer].card.category
+    # else
+    category_repeater << turns[turn_incrementer].card.category
+    turn_incrementer += 1
+    # end
+  end
+  category_repeater.uniq.each do |category|
+    puts "#{category} - #{percent_correct_by_category(category)}% correct"
   end
   end
 end
