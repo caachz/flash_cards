@@ -16,6 +16,6 @@ class CardGeneratorTest < Minitest::Test
   def test_it_contains_cards
     list_of_cards = CardGenerator.new.cards
 
-    # assert_instance_of Card, list_of_cards[0]
+    assert_instance_of Card, list_of_cards[0]
   end
 end
